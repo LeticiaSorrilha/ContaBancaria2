@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,10 +8,16 @@ using System.Threading.Tasks;
 namespace ContaBancaria2
 {
     class Program
-    {
+    {         //Leticia Sorrilha de Souza.
         static void Main(string[] args)
         {
-            var conta = CriarConta();
+            Banco banco = new Banco();
+            banco.ContaBancaria = CriarConta();
+            banco.LimitarSaque(500.00);
+            banco.Depositar(InputDeposito());
+            banco.Sacar(InputSaque());
+            Console.ReadLine();
+            
 
         }
         public static Conta CriarConta()
@@ -25,6 +32,22 @@ namespace ContaBancaria2
             double saldo = double.Parse(Console.ReadLine());
 
             return new Conta(numero, titular, saldo);
+        }
+
+        public static double InputDeposito()
+        {
+            Console.Write("Por favor, entre com valor a ser depositado!");
+            double deposito = double.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
+
+            return deposito;
+        }
+
+        public static double InputSaque()
+        {
+            Console.Write("Por favor, entre com valor a ser sacado!");
+            double saque = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            return saque;
         }
     }
 }
